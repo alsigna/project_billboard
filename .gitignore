@@ -1,3 +1,5 @@
+# static
+# media
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -58,7 +60,7 @@ coverage.xml
 # Django stuff:
 *.log
 local_settings.py
-db.sqlite3
+# db.sqlite3
 db.sqlite3-journal
 
 # Flask stuff:
@@ -127,3 +129,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+conf/settings_private.py

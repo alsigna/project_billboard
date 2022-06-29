@@ -1,0 +1,17 @@
+{% extends "account/base.html" %}
+
+{% block title %}Вход{% endblock title %}
+
+{% block account_action %}
+  <h1 class="text-center">Войти</h1>
+{% endblock account_action %}
+  
+{% block account_content %}
+  <p class="text-center">Вы будете перенаправлены для авторизации в сервисах Google.</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success w-100">Продолжить</button>
+  </form>
+{% endblock account_content %}
+

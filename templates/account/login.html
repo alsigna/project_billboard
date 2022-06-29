@@ -1,0 +1,41 @@
+{% extends "account/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Войти{% endblock title %}
+
+{% block account_action %}
+  <h1 class="text-center">Войти</h1>
+{% endblock account_action %}
+
+{% block account_content %}
+  <form class="login" method="POST" action="{% url 'account_login' %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+    {% endif %}
+
+    <div class="container p-0">
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-success w-100" type="submit">Вход</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <a href="{% url 'google_login' %}" class="btn btn btn-primary w-100 mt-2" role="button">Вход через Google</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <a href="{% url 'account_reset_password' %}" class="btn btn btn-outline-dark w-100 mt-2" role="button">Восстановить пароль</a>
+        </div>
+        <div class="col">
+          <a href="{% url 'account_signup' %}" class="btn btn btn-outline-dark w-100 mt-2" role="button">Регистрация</a>
+        </div>
+      </div>
+    </div>
+  </form>
+{% endblock account_content %}
+
+

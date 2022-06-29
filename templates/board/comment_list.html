@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-md-8">
+        <div class="card mb-4, mt-4">
+            <div class="card-header">
+                <div>Фильтр комментариев</div>
+            </div>
+            <div class="card-body">
+                <form action="" method="get">
+                    {{ filterset.form|crispy }}
+                    <input class="btn btn-success" type="submit" value="Поиск"/>
+                    <a class="btn btn-warning" href="{% url 'board:comment_list' %}">Сбросить</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% for comment in comments %}
+    <br>
+    {% include "board/inc/comment_card.html" with comment=comment %}
+{% endfor %}
+
+
+{% endblock content %}

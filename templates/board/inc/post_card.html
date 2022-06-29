@@ -1,0 +1,53 @@
+{% load crispy_forms_tags %}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div><b>{{ post.author.user.email }}</b> - {{ post.create_time|timesince}} назад.</div>
+                        <div>Категория: <a href="#"><span class="badge rounded-pill bg-secondary">{{ post.category }}</span></a></div>
+                    </div>
+                    <div class="col text-right">
+                        {% if request.user == post.author.user %}
+                            <a href={% url 'board:post_edit' post.id %} class="btn btn-outline-dark btn-sm"><span style="font-size:small">Править</span></a>
+                            <a href={% url 'board:post_delete' post.id %} class="btn btn-outline-dark btn-sm"><span style="font-size:small">Удалить</span></a>
+                        {% endif %}
+                    </div>
+                </div>
+            
+            </div>
+            <div class="card-body">
+                <h2 class="text-center">{{ post.title|safe }}</h2>
+                <p>{{ post.content|safe }}</p>
+                <i class="bi bi-chat-text"></i>
+            </div>
+
+            {% for comment in post.comments.all %}
+                <div class="card mb-4 ml-4 mr-4">
+                    <div class="card-header">
+                        <p class="mb-0"><b>{{ comment.author.user.email }}</b> написал {{ comment.create_time|timesince}} назад:</p>
+                        <p class="mb-0">{{ comment.text }}</p>
+                        <i class="bi bi-chat-text"></i>
+                    </div>   
+                </div>    
+            {% endfor %}
+
+            {% if user.is_authenticated %}
+                <div class="card mb-4 ml-4 mr-4" style="border-width: 0px">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="post_id" value={{ post.id }}>
+                        {{ comment_form|crispy }}
+                        <button type="submit" name="submit_comment_form" class="btn btn-outline-primary btn-sm">Оставить комментарий</button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+
